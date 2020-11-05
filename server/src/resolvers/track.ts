@@ -267,7 +267,7 @@ export class TrackResolver {
     async createTrack(
         @Arg('input') input: TrackInput,
         @Ctx() { req }: MyContext,
-        ): Promise<Track> {
+        ): Promise<Track | undefined> {
         // Check if YouTube video ID already exists in DB before saving
         const youtubeId = getYouTubeId(input.url);
         const trackAlreadyExists = await getConnection().query(
@@ -277,11 +277,9 @@ export class TrackResolver {
     where t."url" LIKE '%${youtubeId}%'
     `,
         );
-
-
-        if (trackAlreadyExists.length > 1) {
+        if (trackAlreadyExists.length > 0) {
             throw new Error('Lien déjà posté !');
-        } else {
+        } else if (trackAlreadyExists.length === 0) {
             const track = await Track.create({
                 ...input,
                 creatorId: req.session.userId,

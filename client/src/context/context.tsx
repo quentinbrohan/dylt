@@ -1,5 +1,4 @@
-import React from 'react';
-import { createContext, useReducer, Dispatch } from 'react';
+import React, { createContext, useReducer, Dispatch } from 'react';
 import {
     playerReducer,
     trackReducer,

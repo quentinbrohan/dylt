@@ -26,26 +26,27 @@ const CreateTrack: React.FC = () => {
     const onFinish = async (values: TTrackFormProps) => {
         setLoading(true);
         console.log('Received values of form: ', values);
-        const { error } = await createTrack({
+        const isValidUrl = validateYouTubeUrl(values.url);
+        if (!isValidUrl) {
+            setError('Url non valide. Seuls les liens YouTube sont acceptés.');
+            setLoading(false);
+            return;
+        }
+
+        const { error: reqError } = await createTrack({
             input: {
                 name: values.name,
                 url: cleanYouTubeUrl(values.url),
             },
         });
 
-        if (error) {
-            setError(error?.graphQLErrors[0].message);
+        if (reqError) {
+            setError(reqError?.graphQLErrors[0].message);
             setLoading(false);
-        }
-
-        const isValidUrl = validateYouTubeUrl(values.url);
-        if (!isValidUrl) {
-            setLoading(false);
-            setError('Url non valide. Seuls les liens YouTube sont acceptés.');
             return;
         }
 
-        if (!error) {
+        if (!reqError) {
             setLoading(false);
             router.push('/');
         }

@@ -134,7 +134,7 @@ const Player: React.FC = () => {
                                             : ''
                                     }
                                     alt={state.track.url}
-                                    className={state.player.playing ? '' : 'is-paused'}
+                                    className={(state.player.playing && state.player.played >= 0.99) ? '' : 'is-paused'}
                                 />
                             </div>
                         </div>
