@@ -1,10 +1,10 @@
-# Dylt, discover new music
+# Discovr, discover new music
 
 Streaming platform for discovering music.
 
 I'm building this project to learn TypeScript and NextJS as well as updating my playlists with good songs.
 
-**[Live version :rocket: ](https://dylt.quentinbrohan.dev)**
+**[Live version :rocket: ](https://discovr.quentinbrohan.dev)**
 
 ## :sparkles: Features
 
@@ -15,7 +15,7 @@ I'm building this project to learn TypeScript and NextJS as well as updating my 
 - Upvote/Downvote track
 - Cookies session
 
-## :construction: WIP
+<!-- ## :construction: WIP
 - Testing
 - Search function | V2 - includes BPM, genre, label, etc
 - Favorite track function
@@ -26,7 +26,7 @@ I'm building this project to learn TypeScript and NextJS as well as updating my 
 - V2 | Rework track to includes artist, name, remix, ref, label, bpm, genre
 - V2 | CreateTrack => Automatic track infos fetching from YouTube URL through html parsing
 - V2 | Extends player to SoundCloud url :eyes:
-- V2 | TrackPage => Show similar tracks
+- V2 | TrackPage => Show similar tracks -->
 
 ## Stack
 

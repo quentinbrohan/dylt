@@ -1,4 +1,6 @@
-# Dylt - Client
+# Discovr - Client
+
+// TODO: URQL => react-query
 
 ## How to run
 

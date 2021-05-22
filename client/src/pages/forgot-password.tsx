@@ -30,21 +30,15 @@ export const ForgotPassword: React.FC = () => {
 
     return (
         <>
-            <Title style={{ textAlign: 'center', color: '#f3f5f9' }}>Mot de passe oublié</Title>
+            <Title style={{ textAlign: 'center', color: '#f3f5f9' }}>Forgot password</Title>
 
-            <Form
-                name="normal_login"
-                className="login-form"
-                // initialValues={{ remember: true }}
-                onFinish={onFinish}
-                scrollToFirstError
-            >
+            <Form name="normal_login" className="login-form" onFinish={onFinish}>
                 <Form.Item
                     name="email"
                     rules={[
                         {
                             required: true,
-                            message: 'Veuillez entrer votre e-mail !',
+                            message: 'Please enter your email address.',
                         },
                     ]}
                 >
@@ -53,19 +47,19 @@ export const ForgotPassword: React.FC = () => {
 
                 <Form.Item>
                     <Button type="primary" htmlType="submit" className="login-form-button" loading={loading}>
-                        J'ai oublié mon mot de passe
+                        Reset password
                     </Button>
                 </Form.Item>
 
                 {complete && (
                     <Result
                         status="success"
-                        title="Opération éxécutée !"
-                        subTitle="Si un compte est associé à cette adresse, un email a été envoyé."
+                        title="Operation successfully executed."
+                        subTitle="If a account is associated to this email address, a mail has been sent."
                         extra={
                             <NextLink href="/">
                                 <Button type="primary" key="console">
-                                    Retourner à l'accueil
+                                    Back home
                                 </Button>
                             </NextLink>
                         }

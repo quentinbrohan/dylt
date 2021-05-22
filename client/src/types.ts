@@ -54,17 +54,17 @@ export type TForgotPasswordFormProps = {
 // Player
 
 export type TInitialStatePlayer = {
-        isOpen: boolean,
-        url: string | string[] | null | undefined;
-        playing: boolean;
-        volume: number;
-        seeking: boolean;
-        played: number;
-        playedSeconds: number;
-        loaded: number;
-        duration: number;
-        loop: boolean;
-}
+    isOpen: boolean;
+    url: string | string[] | null | undefined;
+    playing: boolean;
+    volume: number;
+    seeking: boolean;
+    played: number;
+    playedSeconds: number;
+    loaded: number;
+    duration: number;
+    loop: boolean;
+};
 export type TInitialState = {
     player: TInitialStatePlayer;
     track: Track;

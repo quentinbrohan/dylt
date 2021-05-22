@@ -20,10 +20,10 @@ const TopNavBar: React.FC = () => {
         body = (
             <Space>
                 <Link href="/register">
-                    <Button>Inscription</Button>
+                    <Button>Register</Button>
                 </Link>
                 <Link href="/login">
-                    <Button type="primary">Connexion</Button>
+                    <Button type="primary">Login</Button>
                 </Link>
             </Space>
         );
@@ -40,7 +40,7 @@ const TopNavBar: React.FC = () => {
                     }}
                     loading={logoutFetching}
                 >
-                    Déconnexion
+                    Logout
                 </Button>
             </Space>
         );

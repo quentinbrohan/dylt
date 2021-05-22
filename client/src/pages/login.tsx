@@ -41,7 +41,7 @@ const Login: React.FC = () => {
 
     return (
         <>
-            <Title style={{ textAlign: 'center', color: '#f3f5f9' }}>Connexion</Title>
+            <Title style={{ textAlign: 'center', color: '#f3f5f9' }}>Login</Title>
             <Form
                 name="normal_login"
                 className="login-form"
@@ -54,7 +54,7 @@ const Login: React.FC = () => {
                     rules={[
                         {
                             required: true,
-                            message: "Veuillez entrer votre nom d'utilisateur !",
+                            message: 'Please enter your username or email.',
                         },
                     ]}
                     {...(error?.field === 'username' && {
@@ -62,17 +62,14 @@ const Login: React.FC = () => {
                         help: error?.message,
                     })}
                 >
-                    <Input
-                        prefix={<UserOutlined className="site-form-item-icon" />}
-                        placeholder="Nom d'utilisateur ou e-mail"
-                    />
+                    <Input prefix={<UserOutlined className="site-form-item-icon" />} placeholder="Username or email" />
                 </Form.Item>
                 <Form.Item
                     name="password"
                     rules={[
                         {
                             required: true,
-                            message: 'Veuillez entre votre mot de passe !',
+                            message: 'Please enter your password.',
                         },
                     ]}
                     {...(error?.field === 'password' && {
@@ -83,7 +80,7 @@ const Login: React.FC = () => {
                     <Input
                         prefix={<LockOutlined className="site-form-item-icon" />}
                         type="password"
-                        placeholder="Mot de passe"
+                        placeholder="Password"
                     />
                 </Form.Item>
                 <Form.Item>
@@ -93,15 +90,15 @@ const Login: React.FC = () => {
                     </Form.Item> */}
 
                     <Link href="/forgot-password">
-                        <a className="login-form-forgot">Mot de passe oublié ?</a>
+                        <a className="login-form-forgot">Forgot password?</a>
                     </Link>
                 </Form.Item>
 
                 <Form.Item>
                     <Button type="primary" htmlType="submit" className="login-form-button" loading={loading}>
-                        Se connecter
+                        Login
                     </Button>
-                    Ou <Link href="/register">S'inscrire maintenant !</Link>
+                    Or <Link href="/register">Register now!</Link>
                 </Form.Item>
             </Form>
         </>

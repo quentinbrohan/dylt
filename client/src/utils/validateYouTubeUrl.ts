@@ -1,10 +1,8 @@
-// https://regexr.com/3dj5t
-const regex = new RegExp(
-    /^((?:https?:)?\/\/)?((?:www|m)\.)?((?:youtube\.com|youtu.be))(\/(?:[\w\-]+\?v=|embed\/|v\/)?)([\w\-]+)(\S+)?$/,
-);
+import { YOUTUBE_URL_REGEX } from '@/constants/patterns';
 
-export const validateYouTubeUrl = (url: string) => {
-    if (url.match(regex)) {
+// eslint-disable-next-line import/prefer-default-export
+export const validateYouTubeUrl = (url: string): boolean => {
+    if (url.match(YOUTUBE_URL_REGEX)) {
         return true;
     }
     return false;

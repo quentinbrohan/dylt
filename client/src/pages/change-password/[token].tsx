@@ -47,7 +47,7 @@ export const ChangePassword: NextPage = () => {
 
     return (
         <>
-            <Title style={{ textAlign: 'center', color: '#f3f5f9' }}>Changer de mot de passe</Title>
+            <Title style={{ textAlign: 'center', color: '#f3f5f9' }}>Change password</Title>
             <Form
                 name="changePassword_password"
                 className="change-password-form"
@@ -57,11 +57,11 @@ export const ChangePassword: NextPage = () => {
             >
                 <Form.Item
                     name="newPassword"
-                    label="Mot de passe"
+                    label="New password"
                     rules={[
                         {
                             required: true,
-                            message: 'Veuillez saisir votre nouveau mot de passe !',
+                            message: 'Please enter your new password.',
                         },
                     ]}
                     hasFeedback
@@ -71,13 +71,13 @@ export const ChangePassword: NextPage = () => {
 
                 <Form.Item
                     name="confirm"
-                    label="Confirmer le mot de passe"
+                    label="Password confirmation"
                     dependencies={['newPassword']}
                     hasFeedback
                     rules={[
                         {
                             required: true,
-                            message: 'Veuillez confirmer votre mot de passe !',
+                            message: 'Pleaser confirm your new password.',
                         },
                         ({ getFieldValue }) => ({
                             validator(rule, value) {
@@ -85,9 +85,7 @@ export const ChangePassword: NextPage = () => {
                                     return Promise.resolve();
                                 }
 
-                                return Promise.reject(
-                                    new Error('Les deux mots de passe que vous avez saisis ne correspondent pas !'),
-                                );
+                                return Promise.reject(new Error("Password confirmation doesn't match Password."));
                             },
                         }),
                     ]}
@@ -97,7 +95,7 @@ export const ChangePassword: NextPage = () => {
 
                 <Form.Item>
                     <Button type="primary" htmlType="submit" className="login-form-button" loading={loading}>
-                        Changer le mot de passe
+                        Change password
                     </Button>
                 </Form.Item>
 
@@ -105,9 +103,7 @@ export const ChangePassword: NextPage = () => {
                     <Alert
                         type="error"
                         message={tokenError}
-                        description={
-                            <NextLink href="/forgot-password">Cliquer ici pour en obtenir un nouveau.</NextLink>
-                        }
+                        description={<NextLink href="/forgot-password">Request a new password</NextLink>}
                     />
                 )}
             </Form>

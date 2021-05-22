@@ -14,6 +14,7 @@ import {
 } from '../generated/graphql';
 import { cachingUpdateQuery } from './cachingUpdateQuery';
 import { isServer } from './isServer';
+import { IS_PROD_ENV } from '../constants';
 
 const errorExchange: Exchange = ({ forward }) => (ops$) => {
     return pipe(
@@ -80,10 +81,10 @@ export const createUrqlClient = (ssrExchange: any, ctx: any) => {
     }
 
     return {
-        url: process.env.NEXT_PUBLIC_API_URL as string,
+        url: IS_PROD_ENV ? (process.env.NEXT_PUBLIC_API_URL as string) : 'http://localhost:4000/graphql',
         fetchOptions: {
             credentials: 'include' as const,
-            headers: cookie ?  { cookie } : undefined,
+            headers: cookie ? { cookie } : undefined,
         },
         exchanges: [
             dedupExchange,
@@ -142,11 +143,9 @@ export const createUrqlClient = (ssrExchange: any, ctx: any) => {
                             invalidateAllTracks(cache);
                         },
                         logout: (_result, args, cache, info) => {
-                            cachingUpdateQuery<LogoutMutation, MeQuery>(
-                                cache, { query: MeDocument },
-                                _result,
-                                () => ({ me: null })
-                            );
+                            cachingUpdateQuery<LogoutMutation, MeQuery>(cache, { query: MeDocument }, _result, () => ({
+                                me: null,
+                            }));
                         },
                         login: (_result, args, cache, info) => {
                             cachingUpdateQuery<LoginMutation, MeQuery>(

@@ -26,7 +26,6 @@ import Player from '../components/Player';
 import { AppContext } from '../context/context';
 import { TypesPlayer, TypesTrack } from '../reducers/reducers';
 
-
 const { Title } = Typography;
 // const { Meta } = Card;
 
@@ -56,18 +55,17 @@ const Index: React.FC = () => {
     // Context
     const { state, dispatch } = useContext(AppContext);
 
-
     const handleTrack = (track: Track) => {
         dispatch({
             type: TypesTrack.SaveTrack,
             payload: track,
-        })
+        });
     };
 
     if (!fetching && !data) {
         return (
             <div>
-                <div>Une erreur est survenue dans la requête.</div>
+                <div>Error in the request, please try again.</div>
                 <div>{error?.message}</div>
             </div>
         );
@@ -79,13 +77,13 @@ const Index: React.FC = () => {
                 <span role="img" aria-label="fire">
                     🔥
                 </span>{' '}
-                Derniers partages
+                Latest share
             </Title>
             <div className="home-track-container">
                 {!data && fetching ? (
                     <Spin indicator={loadingIcon} />
                 ) : (
-                    data!.tracks.tracks.map((track: TrackSnippetFragment) =>
+                    data?.tracks.tracks.map((track: TrackSnippetFragment) =>
                         !track ? null : (
                             <Card
                                 key={track.id}
@@ -140,12 +138,12 @@ const Index: React.FC = () => {
                                         {track.creator.id === trackCreator ? (
                                             <Popconfirm
                                                 placement="top"
-                                                title="Êtes-vous sûr de vouloir supprimer cette musique ?"
+                                                title="Do you really want to delete this track?"
                                                 onConfirm={async () => {
                                                     await deleteTrack({ id: track.id });
                                                 }}
-                                                okText="Supprimer"
-                                                cancelText="Non"
+                                                okText="Delete"
+                                                cancelText="Cancel"
                                             >
                                                 <DeleteOutlined key="delete" />
                                             </Popconfirm>
@@ -171,7 +169,7 @@ const Index: React.FC = () => {
                                                         dispatch({
                                                             type: TypesPlayer.Play,
                                                         });
-                                                    };
+                                                    }
                                                 }}
                                             />
                                         </Button>
@@ -213,7 +211,7 @@ const Index: React.FC = () => {
                             });
                         }}
                     >
-                        Voir plus
+                        Load more
                     </Button>
                 </div>
             ) : null}

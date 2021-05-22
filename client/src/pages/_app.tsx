@@ -8,8 +8,9 @@ import { createUrqlClient } from '../utils/createUrqlClient';
 import SiteLayout from '../components/Layout';
 import { AppProvider } from '../context/context';
 
-// ??
 const { Header, Content, Sider } = LayoutAD;
+
+// https://react-query.tanstack.com/examples/basic-graphql-request
 
 function MyApp({ Component, pageProps }: AppProps) {
     return (

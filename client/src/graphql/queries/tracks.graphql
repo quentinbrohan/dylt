@@ -1,8 +1,8 @@
 query Tracks($limit: Int!, $cursor: String) {
-  tracks(limit: $limit, cursor: $cursor) {
-    hasMore
-    tracks {
-      ...TrackSnippet
+    tracks(limit: $limit, cursor: $cursor) {
+        hasMore
+        tracks {
+            ...TrackSnippet
+        }
     }
-  }
 }

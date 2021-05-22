@@ -15,7 +15,6 @@ type TActionMap<M extends { [index: string]: any }> = {
           };
 };
 
-
 // Player
 export enum TypesPlayer {
     OpenClosePlayer = 'OPEN_CLOSE_PLAYER',
@@ -28,20 +27,20 @@ export enum TypesPlayer {
     SeekChange = 'SEEK_CHANGE',
     ProgressChange = 'PROGRESS_CHANGE',
     SaveDuration = 'SAVE_DURATION',
-};
+}
 
 type TPlayer = {
-        isOpen: boolean,
-        url: string | string[] | null | undefined;
-        playing: boolean;
-        volume: number;
-        seeking: boolean;
-        played: number;
-        playedSeconds: number;
-        loaded: number;
-        duration: number;
-        loop: boolean;
-    };
+    isOpen: boolean;
+    url: string | string[] | null | undefined;
+    playing: boolean;
+    volume: number;
+    seeking: boolean;
+    played: number;
+    playedSeconds: number;
+    loaded: number;
+    duration: number;
+    loop: boolean;
+};
 
 type TPlayerPayload = {
     [TypesPlayer.OpenClosePlayer]: undefined;
@@ -83,7 +82,7 @@ export const playerReducer = (state: TPlayer, action: TPlayerActions) => {
                 ...state,
                 isOpen: false,
                 playing: false,
-            }
+            };
         case TypesPlayer.PlayPause:
             return {
                 ...state,
@@ -135,20 +134,19 @@ export const playerReducer = (state: TPlayer, action: TPlayerActions) => {
         default:
             return state;
     }
-}
+};
 
 // Track
 export enum TypesTrack {
     SaveTrack = 'SAVE_TRACK',
-};
+}
 
 type TTrackPayload = {
     [TypesTrack.SaveTrack]: Track;
-    track: Track,
+    track: Track;
 };
 
 export type TTrackActions = TActionMap<TTrackPayload>[keyof TActionMap<TTrackPayload>];
-
 
 export const trackReducer = (state: Track, action: TTrackActions) => {
     switch (action.type) {
@@ -156,11 +154,11 @@ export const trackReducer = (state: Track, action: TTrackActions) => {
             return {
                 ...state,
                 ...action.payload,
-            }
+            };
         default:
             return state;
     }
-}
+};
 
 // Tracks
 export enum TypesTracks {
@@ -174,10 +172,7 @@ export type TTracksActions = TActionMap<TTracksPayload>[keyof TActionMap<TTracks
 export const tracksReducer = (state: Track[], action: TTracksActions) => {
     switch (action.type) {
         case TypesTracks.SaveTracks:
-            return [
-                ...state,
-                ...action.payload,
-            ]
+            return [...state, ...action.payload];
         default:
             return state;
     }

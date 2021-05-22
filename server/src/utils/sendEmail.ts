@@ -20,7 +20,7 @@ export async function sendEmail(to: string, html: string) {
 
     // send mail with defined transport object
     const info = await transporter.sendMail({
-        from: '"Dylt 💿" <email@dylt.fr>', // sender address
+        from: '"Discovr 💿" <email@discovr.fr>', // sender address
         to, // list of receivers
         subject: 'Réinitialiser votre mot de passe', // Subject line
         html,

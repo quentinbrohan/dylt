@@ -57,12 +57,12 @@ const EditTrack = () => {
     }
 
     if (!data?.track) {
-        return <div>Musique introuvable.</div>;
+        return <div>Track not found.</div>;
     }
 
     return (
         <>
-            <Title style={{ textAlign: 'center', color: '#f3f5f9' }}>Modifier une musique</Title>
+            <Title style={{ textAlign: 'center', color: '#f3f5f9' }}>Edit a track</Title>
             <Form
                 name="create_track"
                 className="edit-track-form"
@@ -76,23 +76,33 @@ const EditTrack = () => {
             >
                 <Form.Item
                     name="name"
-                    label="Artiste(s) - Titre (Remix) [Réf]"
+                    label="Artist(s) - Track Title (Remix) [Ref]"
                     rules={[
                         {
                             required: true,
-                            message: "Veuillez entrer le nom de l'artiste et le titre de la musique !",
+                            message: "Please enter the artist's name and the track title.",
                         },
                     ]}
                 >
-                    <Input placeholder="Artiste(s) - Titre de la musique (Remix) [Référence]" />
+                    <Input placeholder="Artist(s) - Track Title (Remix) [Reference]" />
                 </Form.Item>
                 <Form.Item
                     name="url"
-                    label="Lien"
+                    label="Track link"
                     rules={[
                         {
                             required: true,
-                            message: 'Veuillez entre un lien Youtube vers la musique !',
+                            message: "Please enter track's link",
+                        },
+                        {
+                            validator: (rule, value) => {
+                                console.log({ value });
+                                const isValidUrl = validateYouTubeUrl(value);
+                                if (isValidUrl) {
+                                    return Promise.resolve();
+                                }
+                                return Promise.reject(new Error('Invalid URL. Only YouTube links are accepted.'));
+                            },
                         },
                     ]}
                     {...(error && {
@@ -103,7 +113,7 @@ const EditTrack = () => {
                     <Input
                         prefix={<LinkOutlined className="site-form-item-icon" />}
                         type="text"
-                        placeholder="Lien de la musique (YouTube)"
+                        placeholder="Track's link (Youtube url)"
                     />
                 </Form.Item>
 
@@ -118,10 +128,10 @@ const EditTrack = () => {
                                 router.back();
                             }}
                         >
-                            Retour
+                            Back
                         </Button>
                         <Button type="primary" htmlType="submit" className="edit-track-form-button" loading={loading}>
-                            Modifier la musique
+                            Edit track
                         </Button>
                     </Space>
                 </Form.Item>

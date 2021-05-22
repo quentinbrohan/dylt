@@ -41,7 +41,7 @@ const Track = () => {
     // Mutations
     const [, deleteTrack] = useDeleteTrackMutation();
     // Delete Popover
-    const text = 'Êtes-vous sûr de vouloir supprimer cette musique ?';
+    const text = 'Do you really want to delete this track?';
 
     const handleTrack = (track: TrackProps) => {
         dispatch({
@@ -54,8 +54,9 @@ const Track = () => {
     const columns = [
         {
             title: '',
+            dataIndex: 'id',
             key: 'action',
-            render: (track: TrackProps) => (
+            render: (id, track: TrackProps) => (
                 <Space>
                     <Button type="text">
                         <PlayCircleOutlined
@@ -107,7 +108,7 @@ const Track = () => {
     ];
 
     if (!fetching && !data) {
-        return <div>Une erreur est survenue dans la requête.</div>;
+        return <div>An error occured, please try again.</div>;
     }
 
     if (error) {
@@ -146,7 +147,7 @@ const Track = () => {
                     <div className="track-container">
                         <div className="header" />
                         <div className="creator-info">
-                            <p>Posté par {data?.trackByIdAndSameArtistTracks.track.creator.username}.</p>
+                            <p>Posted by {data?.trackByIdAndSameArtistTracks.track.creator.username}.</p>
                         </div>
                         <div className="cta-actions">
                             <Space>
@@ -164,8 +165,8 @@ const Track = () => {
                                             router.push('/');
                                         }
                                     }}
-                                    okText="Supprimer"
-                                    cancelText="Non"
+                                    okText="Demete"
+                                    cancelText="Cancel"
                                 >
                                     <Button>
                                         <DeleteOutlined />
@@ -197,7 +198,7 @@ const Track = () => {
                                             }}
                                         />
                                     </Button>
-                                    Même artiste
+                                    Same artist
                                 </Title>
                                 <Table
                                     columns={columns}

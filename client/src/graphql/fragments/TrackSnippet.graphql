@@ -1,16 +1,16 @@
 fragment TrackSnippet on Track {
-  id
-  name
-  url
-  votes
-  creatorId
-  createdAt
-  updatedAt
-  voteStatus
-  creator {
-    username
     id
-    email
+    name
+    url
+    votes
+    creatorId
     createdAt
-  }
+    updatedAt
+    voteStatus
+    creator {
+        username
+        id
+        email
+        createdAt
+    }
 }

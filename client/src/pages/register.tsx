@@ -1,5 +1,5 @@
 import { QuestionCircleOutlined } from '@ant-design/icons';
-import { Button, Form, Input, Tooltip, Typography } from 'antd';
+import { Button, Form, Input, Space, Tooltip, Typography } from 'antd';
 import { withUrqlClient } from 'next-urql';
 import { useRouter } from 'next/router';
 import React, { useState } from 'react';
@@ -57,7 +57,7 @@ const Register: React.FC = () => {
 
     return (
         <>
-            <Title style={{ textAlign: 'center', color: '#f3f5f9' }}>Inscription</Title>
+            <Title style={{ textAlign: 'center', color: '#f3f5f9' }}>Register</Title>
             <Form
                 // {...formItemLayout}
                 form={form}
@@ -69,17 +69,17 @@ const Register: React.FC = () => {
                 <Form.Item
                     name="username"
                     label={
-                        <span>
-                            Nom d'utilisateur&nbsp;
-                            <Tooltip title="Comment voulez-vous que les autres vous appellent ?">
+                        <Space>
+                            Username
+                            <Tooltip title="The name that'll be shown to other users.">
                                 <QuestionCircleOutlined />
                             </Tooltip>
-                        </span>
+                        </Space>
                     }
                     rules={[
                         {
                             required: true,
-                            message: "Veuillez entrer votre nom d'utilisateur !",
+                            message: 'Please enter your username.',
                             whitespace: true,
                         },
                     ]}
@@ -92,15 +92,15 @@ const Register: React.FC = () => {
                 </Form.Item>
                 <Form.Item
                     name="email"
-                    label="E-mail"
+                    label="Email"
                     rules={[
                         {
                             type: 'email',
-                            message: 'Adresse e-mail non valide !',
+                            message: 'Invalid email address.',
                         },
                         {
                             required: true,
-                            message: 'Veuillez saisir votre adresse e-mail !',
+                            message: 'Please enter your email address.',
                         },
                     ]}
                     {...(error?.field === 'email' && {
@@ -113,11 +113,11 @@ const Register: React.FC = () => {
 
                 <Form.Item
                     name="password"
-                    label="Mot de passe"
+                    label="Password"
                     rules={[
                         {
                             required: true,
-                            message: 'Veuillez saisir votre mot de passe !',
+                            message: 'Please enter your password.',
                         },
                     ]}
                     hasFeedback
@@ -131,13 +131,13 @@ const Register: React.FC = () => {
 
                 <Form.Item
                     name="confirm"
-                    label="Confirmer le mot de passe"
+                    label="Password confirmation"
                     dependencies={['password']}
                     hasFeedback
                     rules={[
                         {
                             required: true,
-                            message: 'Veuillez confirmer votre mot de passe !',
+                            message: 'Please confirm your password',
                         },
                         ({ getFieldValue }) => ({
                             validator(rule, value) {
@@ -145,9 +145,7 @@ const Register: React.FC = () => {
                                     return Promise.resolve();
                                 }
 
-                                return Promise.reject(
-                                    new Error('Les deux mots de passe que vous avez saisis ne correspondent pas !'),
-                                );
+                                return Promise.reject(new Error("Password confirmation doesn't match Password."));
                             },
                         }),
                     ]}
@@ -155,11 +153,9 @@ const Register: React.FC = () => {
                     <Input.Password />
                 </Form.Item>
 
-                <Form.Item>
-                    <Button type="primary" htmlType="submit" loading={loading}>
-                        S'inscrire
-                    </Button>
-                </Form.Item>
+                <Button type="primary" htmlType="submit" loading={loading}>
+                    Register
+                </Button>
             </Form>
         </>
     );

@@ -3,10 +3,10 @@ import { Button, Form, Input, Typography } from 'antd';
 import { withUrqlClient } from 'next-urql';
 import { useRouter } from 'next/router';
 import React, { useState } from 'react';
+import { validateYouTubeUrl } from '@/utils/validators';
 import { useCreateTrackMutation } from '../generated/graphql';
 import { createUrqlClient } from '../utils/createUrqlClient';
 import { useIsAuth } from '../utils/useIsAuth';
-import { validateYouTubeUrl } from '../utils/validateYouTubeUrl';
 import '../styles/components/createTrack.less';
 import { cleanYouTubeUrl } from '../utils/cleanYouTubeUrl';
 import { TTrackFormProps } from '../types';
@@ -35,6 +35,7 @@ const CreateTrack: React.FC = () => {
 
         if (error) {
             setError(error?.graphQLErrors[0].message);
+            // form.setFields([])
             setLoading(false);
         }
 
@@ -53,7 +54,7 @@ const CreateTrack: React.FC = () => {
 
     return (
         <>
-            <Title style={{ textAlign: 'center', color: '#f3f5f9' }}>Ajouter une musique</Title>
+            <Title style={{ textAlign: 'center', color: '#f3f5f9' }}>Add track</Title>
             <Form
                 name="create_track"
                 className="create-track-form"
@@ -63,23 +64,33 @@ const CreateTrack: React.FC = () => {
             >
                 <Form.Item
                     name="name"
-                    label="Artiste(s) - Titre (Remix) [Réf]"
+                    label="Artist(s) - Track Title (Remix) [Ref]"
                     rules={[
                         {
                             required: true,
-                            message: "Veuillez entrer le nom de l'artiste et le titre de la musique !",
+                            message: "Please enter the artist's name and the track title.",
                         },
                     ]}
                 >
-                    <Input placeholder="Artiste(s) - Titre de la musique (Remix) [Référence]" />
+                    <Input placeholder="Artist(s) - Track Title (Remix) [Reference]" />
                 </Form.Item>
                 <Form.Item
                     name="url"
-                    label="Lien"
+                    label="Track link"
                     rules={[
                         {
                             required: true,
-                            message: 'Veuillez entre un lien vers la musique !',
+                            message: "Please enter track's link",
+                        },
+                        {
+                            validator: (rule, value) => {
+                                console.log({ value });
+                                const isValidUrl = validateYouTubeUrl(value);
+                                if (isValidUrl) {
+                                    return Promise.resolve();
+                                }
+                                return Promise.reject(new Error('Invalid URL. Only YouTube links are accepted.'));
+                            },
                         },
                     ]}
                     {...(error && {
@@ -90,13 +101,13 @@ const CreateTrack: React.FC = () => {
                     <Input
                         prefix={<LinkOutlined className="site-form-item-icon" />}
                         type="text"
-                        placeholder="Lien de la musique (YouTube)"
+                        placeholder="Track's link (Youtube url)"
                     />
                 </Form.Item>
 
                 <Form.Item>
                     <Button type="primary" htmlType="submit" className="create-track-form-button" loading={loading}>
-                        Ajouter la musique
+                        Add track
                     </Button>
                 </Form.Item>
             </Form>

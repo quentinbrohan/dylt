@@ -1,5 +1,5 @@
-import React from 'react';
-import { createContext, useReducer, Dispatch } from 'react';
+import React, { createContext, useReducer, Dispatch } from 'react';
+
 import {
     playerReducer,
     trackReducer,
@@ -7,7 +7,7 @@ import {
     TPlayerActions,
     TTrackActions,
     TTracksActions,
-} from '../reducers/reducers'
+} from '../reducers/reducers';
 import { TInitialState } from '../types';
 
 const initialState = {
@@ -25,31 +25,29 @@ const initialState = {
     },
     track: {},
     tracks: [],
-}
+};
 
 const AppContext = createContext<{
-    state: TInitialState,
+    state: TInitialState;
     dispatch: Dispatch<TPlayerActions | TTrackActions | TTracksActions>;
 }>({
     state: initialState,
     dispatch: () => null,
 });
 
-const mainReducer = ({ track, tracks, player }: TInitialState, action: TPlayerActions | TTrackActions | TTracksActions) => ({
+const mainReducer = (
+    { track, tracks, player }: TInitialState,
+    action: TPlayerActions | TTrackActions | TTracksActions,
+) => ({
     track: trackReducer(track, action),
     tracks: tracksReducer(tracks, action),
     player: playerReducer(player, action),
 });
 
-const AppProvider:React.FC = ({ children }) => {
+const AppProvider: React.FC = ({ children }) => {
     const [state, dispatch] = useReducer(mainReducer, initialState);
 
-    return (
-        <AppContext.Provider value={{state, dispatch}}>
-            {children}
-        </AppContext.Provider>
-    )
-}
+    return <AppContext.Provider value={{ state, dispatch }}>{children}</AppContext.Provider>;
+};
 
 export { AppContext, AppProvider };
-
